@@ -1,0 +1,17 @@
+[
+{
+  "op" : "replace",
+  "path" : "/scripts/0",
+  "value" : "/objects/generic/apiary_delagger.lua"
+},
+{
+  "op" : "add",
+  "path" : "/DigitalStorageNetworkPart",
+  "value" : {"EndDevice" : "true" }
+},
+{
+  "op" : "add",
+  "path" : "/AvoidSlots",
+  "value" : [ 0,1,2,3 ]
+}
+]
