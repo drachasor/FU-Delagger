@@ -52,11 +52,26 @@ function setInputs(result, max_mult)
 		local input_available = world.containerAvailable(entity.id(),{item = inItem})
 		if (input_available >= techlevelMap(v)) and
 				(not powered or power.consume(config.getParameter('isn_requiredPower'))) then
-			self.bulkMult = math.min(max_mult,input_available // tonumber(techlevelMap(v)))
+			self.bulkMult = math.min
+				(
+					max_mult,
+					math.floor
+					(
+						input_available / tonumber(techlevelMap(v))
+					)
+				)
 			--sb.logInfo(inItem);
 			--sb.logInfo(tostring(self.bulkMult));
 			--
-			local inputItem = Item({name = inItem, count = tonumber(techlevelMap(v)) * self.bulkMult, parameters = {}}, true)
+			local inputItem = Item
+			(
+				{
+					name = inItem, 
+					count = tonumber(techlevelMap(v)) * self.bulkMult, 
+					parameters = {}
+				}, 
+				true
+			)
 			self.inputData:Add(inputItem)
 		else
 			--sb.logInfo("inputoutputs are false")

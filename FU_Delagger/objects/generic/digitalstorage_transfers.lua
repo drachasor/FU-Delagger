@@ -27,18 +27,19 @@ end
 function transferTask()
 	--sb.logInfo("transfer task start")
 	ds_fu_transferItemTable(self.outputData, self.avoidSlots)
-	self.outputData = ItemsTable(false)
 	if self._limiter:Check() then
         coroutine.yield();
 	end
 	--sb.logInfo("transfer task continue")
 	self.outputData = ItemsTable(false)
+	self.inputData = ItemsTable(false)
 	storage.outputData = nil
 end
 
 function outputTableToSelf()
 	fu_transferItemTable(self.outputData, self.avoidSlots)
 	self.outputData = ItemsTable(false)
+	self.inputData = ItemsTable(false)
 	storage.outputData = nil
 end
 

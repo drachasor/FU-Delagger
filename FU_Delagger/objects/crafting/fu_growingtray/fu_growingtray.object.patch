@@ -1,0 +1,31 @@
+[
+{
+  "op" : "replace",
+  "path" : "/scripts/0",
+  "value" : "/objects/crafting/bulk_unifiedgrowingtray.lua"
+},
+{
+  "op" : "add",
+  "path" : "/DigitalStorageNetworkPart",
+  "value" : {"EndDevice" : "true" }
+},
+{
+  "op" : "add",
+  "path" : "/ScriptDeltaTable",
+  "value" : [
+    {"base" : 25,
+    "randMin" : 0,
+    "randMax" : 10}
+  ]
+},
+{
+  "op" : "add",
+  "path" : "/WorldDropIfFull",
+  "value" : false
+},
+{
+  "op" : "add",
+  "path" : "/AvoidSlots",
+  "value" : [ 0,1,2 ]
+}
+]

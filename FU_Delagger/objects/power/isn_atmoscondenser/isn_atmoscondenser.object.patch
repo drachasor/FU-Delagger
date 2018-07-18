@@ -1,0 +1,41 @@
+[
+{
+  "op" : "replace",
+  "path" : "/scripts/1",
+  "value" : "/objects/power/isn_atmoscondenser/bulk_resource_generator.lua"
+},
+{
+  "op" : "add",
+  "path" : "/DigitalStorageNetworkPart",
+  "value" : {"EndDevice" : "true" }
+},
+{
+  "op" : "add",
+  "path" : "/SpeedIncrease",
+  "value" : 0
+},
+{
+  "op" : "add",
+  "path" : "/ScriptDeltaTable",
+  "value" : [
+    {"base" : 25,
+    "randMin" : 0,
+    "randMax" : 10}
+  ]
+},
+{
+  "op" : "add",
+  "path" : "/BulkMult",
+  "value" : 30
+},
+{
+  "op" : "add",
+  "path" : "/WorldDropIfFull",
+  "value" : false
+},
+{
+  "op" : "add",
+  "path" : "/AvoidSlots",
+  "value" : [ ]
+}
+]

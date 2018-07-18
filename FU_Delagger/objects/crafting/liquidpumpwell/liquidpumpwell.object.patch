@@ -1,0 +1,50 @@
+[
+{
+  "op" : "replace",
+  "path" : "/scripts/0",
+  "value" : "/scripts/bulk_well.lua"
+},
+{
+  "op" : "add",
+  "path" : "/DigitalStorageNetworkPart",
+  "value" : {"EndDevice" : "true" }
+},
+{
+  "op" : "add",
+  "path" : "/ScriptDeltaTable",
+  "value" : [
+    {"base" : 25,
+    "randMin" : 0,
+    "randMax" : 10}
+  ]
+},
+{
+  "op" : "add",
+  "path" : "/WorldDropIfFull",
+  "value" : "false"
+},
+{
+  "op" : "add",
+  "path" : "/SpeedIncrease",
+  "value" : 0
+},
+{
+  "op" : "add",
+  "path" : "/BulkMult",
+  "value" : 30
+},
+{
+  "op" : "add",
+  "path" : "/AvoidSlots",
+  "value" : [ ]
+},
+{
+    "op" : "replace",
+    "path" : "/wellslots",
+    "value" : [
+    {"name" : "liquidwater","rate" : 1},
+    {"name" : "methanol","rate" : 0.02},
+    {"name" : "algaegreen","rate" : 0.16}
+  ]
+}
+]
