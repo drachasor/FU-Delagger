@@ -93,12 +93,10 @@ function constantInits()
 end
 
 function init()
+	self.loadcomplete = false
 	constantInits()
 	AdditionalInits()
-	setScriptUpdate()	
-	loadProgress()
-	SetPowered()
-	GetRecipes()
+	setScriptUpdate()
 end
 
 --Script Update Functions
@@ -213,10 +211,10 @@ function GetPower(dt)
 		dt = 2
 	end
 	if self.needspower and self.running then
-		sb.logInfo("needs power and running")
+		--sb.logInfo("needs power and running")
 		self.dowork = power.consume(self.powerMJS * dt)
 		if self.dowork then
-			sb.logInfo("Doing Work")
+			--sb.logInfo("Doing Work")
 			if not self.haspower then
 				-- if we didn't have power, now we do, so turn on crafting animation
 				self.haspower = true
@@ -239,6 +237,13 @@ end
 --Update
 
 function update(dt)
+	if not self.loadcomplete then
+		loadProgress()
+		SetPowered()
+		GetRecipes()
+		self.loadcomplete = true
+	end
+
 	self._limiter:Restart()
 		--self._tasks:Restart();
 	--sb.logInfo("update")

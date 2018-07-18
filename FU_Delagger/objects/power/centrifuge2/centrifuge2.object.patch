@@ -36,7 +36,7 @@
 {
   "op" : "add",
   "path" : "/AvoidSlots",
-  "value" : [ 0,1 ]
+  "value" : [ 0,1,2,3 ]
 }
 ]
 

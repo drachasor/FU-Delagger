@@ -21,7 +21,7 @@ function AdditionalInits()
 end
 
 function GetRecipes()
-	sb.logInfo("Loading Recipes")
+	--sb.logInfo("Loading Recipes")
 	self.centrifugeType = config.getParameter("centrifugeType") or error("centrifugeType is undefined in .object file") -- die horribly
 	self.recipeTable = getRecipes() --from centrifuge_recipes.lua
 	--if self.recipeTable == nil then   --sb.logInfo("No Recipes!") end
