@@ -14,7 +14,7 @@ changes:
 	
 check:
 	@cd FU_Delagger/
-	@if test -e "./_metadata"; then\
+	@if test -e "./FU_Delagger/_metadata"; then\
 		echo "metadata file found";\
 	else\
 		echo "Missing file : _metadata";\
