@@ -1,5 +1,5 @@
 TEMP = $(shell echo ${BRANCH_NAME} | sed -e "s/\//_/g")
-TMP = $(shell cmp --silent "./_metadata" "/home/jenkins/FU_Factory_Delagger/oldFU_Factory_Delagger$(TEMP)metadata" && echo "1" || echo "0" )
+TMP = $(shell cmp --silent "./FU_Delagger/_metadata" "/home/jenkins/FU_Factory_Delagger/oldFU_Factory_Delagger$(TEMP)metadata" && echo "1" || echo "0" )
 Timestamp = $(shell date +"%Y-%m-%d_%H-%M-%S")
 
 all: build
@@ -13,6 +13,7 @@ changes:
 	fi
 	
 check:
+	@cd FU_Delagger/
 	@if test -e "./_metadata"; then\
 		echo "metadata file found";\
 	else\
@@ -27,6 +28,7 @@ check:
 	fi
 
 build: changes
+	@cd FU_Delagger/
 	@if [ $(TMP) -eq 0 ]; then\
 		echo '***Building the $(TEMP) branch***';\
 		mv /home/jenkins/Dropbox/FU_Factory_Delagger/FU_Factory_Delagger_$(TEMP).zip /home/jenkins/Dropbox/FU_Factory_Delagger/previousVersions/FU_Factory_Delagger_$(TEMP)_$(Timestamp).zip ;\
