@@ -31,7 +31,7 @@
 {
   "op" : "add",
   "path" : "/BulkMult",
-  "value" : 30
+  "value" : 60
 },
 {
   "op" : "add",

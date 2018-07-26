@@ -16,6 +16,25 @@
 },
 {
   "op" : "add",
+  "path" : "/ScriptDeltaTable",
+  "value" : [
+    {"base" : 25,
+    "randMin" : 0,
+    "randMax" : 10}
+  ]
+},
+{
+  "op" : "add",
+  "path" : "/BulkMult",
+  "value" : 60
+},
+{
+  "op" : "add",
+  "path" : "/WorldDropIfFull",
+  "value" : true
+},
+{
+  "op" : "add",
   "path" : "/AvoidSlots",
   "value" : [ 0,1,2 ]
 }
