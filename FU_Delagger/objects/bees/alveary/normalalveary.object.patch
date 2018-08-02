@@ -1,5 +1,10 @@
 [
 {
+  "op" : "add",
+  "path" : "/learnBlueprintsOnPickup",
+  "value" : [ "robotic_apiary"]
+},
+{
   "op" : "replace",
   "path" : "/scripts/0",
   "value" : "/objects/generic/apiary_delagger.lua"
@@ -11,7 +16,7 @@
 },
 {
   "op" : "add",
-  "path" : "/AvoidSlots",
-  "value" : [ 0,1,2,3 ]
+  "path" : "/FirstOutputSlot",
+  "value" : 4
 }
 ]

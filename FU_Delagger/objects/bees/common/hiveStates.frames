@@ -1,0 +1,13 @@
+{
+  "frameGrid" : {
+    "size" : [11, 5],
+    "dimensions" : [3, 2],
+    "names" : [
+      [ "nohive.1", "active.1","resting.1" ],
+      [ "nohive.2", "active.2","resting.2" ]
+    ]
+  },
+  "aliases" : {
+    "default.default" : "nohive.1"
+  }
+}

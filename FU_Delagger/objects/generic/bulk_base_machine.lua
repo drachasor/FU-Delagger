@@ -81,15 +81,15 @@ function constantInits()
 
 	self._limiter = ClockLimiter();
 	self._tasks = TaskOperator("Queue",self._limiter,function() DigitalNetworkFailsafeShutdown(); end);
-	self.avoidSlots = config.getParameter("AvoidSlots", 1)
+	self.firstOutputSlot = config.getParameter("FirstOutputSlot") or 0
 	self.scriptDeltaTable = config.getParameter("ScriptDeltaTable",1)[1]
 	self.worlddropiffull = config.getParameter("WorldDropIfFull")
 	self.speedIncrease = config.getParameter("SpeedIncrease", 1)
 	self.speed = 1
 	self.maxBulkMult = config.getParameter("BulkMult", 1) or 30;
 	self.deltaTime = 0
-	transferUtil.init() -- grandfathered in from FU scripts
-
+	--transferUtil.init() -- grandfathered in from FU scripts
+	
 end
 
 function init()
@@ -153,7 +153,7 @@ end
 function advanceProgress(saverate, dt)
 	if self.deltaTime > saverate then
 		self.deltaTime=self.deltaTime - saverate + dt
-		transferUtil.loadSelfContainer() -- from FU
+		--transferUtil.loadSelfContainer() -- from FU
 		self.speed = self.speed + self.speedIncrease
 		storage.timer = self.timer
 		storage.speed = self.speed

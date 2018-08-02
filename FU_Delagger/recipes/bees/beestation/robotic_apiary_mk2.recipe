@@ -1,0 +1,15 @@
+{
+  "input" : [
+    { "item" : "robotic_apiary", "count" : 1 },
+    { "item" : "advancealloy", "count" : 10 },
+    { "item" : "carbonplate", "count" : 10 },
+    { "item" : "fuprocessor", "count" : 1 },
+    { "item" : "advcircuit", "count" : 4 },
+    { "item" : "stickofram", "count" : 4 }
+  ],
+  "output" : {
+    "item" : "robotic_apiary_mk2",
+    "count" : 1
+  },
+  "groups" : [ "mod", "beestation", "tools", "all", "functional" ]
+}

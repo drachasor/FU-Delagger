@@ -1,0 +1,15 @@
+{
+  "input" : [
+    { "item" : "robotic_apiary_mk2", "count" : 1 },
+    { "item" : "densealloy", "count" : 10 },
+    { "item" : "tritaniumbar", "count" : 10 },
+    { "item" : "aichip", "count" : 1 },
+    { "item" : "advcircuit", "count" : 4 },
+    { "item" : "stickofram", "count" : 4 }
+  ],
+  "output" : {
+    "item" : "robotic_apiary_mk3",
+    "count" : 1
+  },
+  "groups" : [ "mod", "beestation", "tools", "all", "functional" ]
+}

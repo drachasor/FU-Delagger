@@ -15,7 +15,7 @@ function init()
 		_init()
 		self._limiter = ClockLimiter();
 		self._tasks = TaskOperator("Queue",self._limiter,function() DigitalNetworkFailsafeShutdown(); end);
-		self.avoidSlots = config.getParameter("AvoidSlots", 1)
+		self.firstOutputSlot = config.getParameter("FirstOutputSlot")
 		self.worlddropiffull = true
 
 		self.speedincrease = config.getParameter("SpeedIncrease", 1)

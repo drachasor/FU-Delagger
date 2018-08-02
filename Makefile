@@ -13,7 +13,6 @@ changes:
 	fi
 	
 check:
-	@cd FU_Delagger/
 	@if test -e "./FU_Delagger/_metadata"; then\
 		echo "metadata file found";\
 	else\
@@ -28,8 +27,8 @@ check:
 	fi
 
 build: changes
-	@cd FU_Delagger/
 	@if [ $(TMP) -eq 0 ]; then\
+		cd FU_Delagger\
 		echo '***Building the $(TEMP) branch***';\
 		mv /home/jenkins/Dropbox/FU_Factory_Delagger/FU_Factory_Delagger_$(TEMP).zip /home/jenkins/Dropbox/FU_Factory_Delagger/previousVersions/FU_Factory_Delagger_$(TEMP)_$(Timestamp).zip ;\
 		mv /home/jenkins/Dropbox/FU_Factory_Delagger/FU_Factory_Delagger_$(TEMP).pak /home/jenkins/Dropbox/FU_Factory_Delagger/previousVersions/FU_Factory_Delagger_$(TEMP)_$(Timestamp).pak ;\

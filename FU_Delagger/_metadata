@@ -1,5 +1,5 @@
 {
-  "version" : "0.5",
+  "version" : "0.6.0",
   "author" : "Drachasor",
   "tags" : "Crafting and Building|Miscellaneous|Furniture and Objects|Food and Farming|Mechanics",
   "description" : "Reduces LAG of FU machines and bees.\n\nRequires HLIB and Digital Storage by Hiran\n\nHow it Works: Add/Removing items from inventories is process intensive.  This modifies machines so that they do a larger chunk of work at once.  Non-Apiaries will do 30 times normal work at once, though it takes 30 times as long.  Apiaries will output every 10 seconds.\n\nAdditionally, you can connect any affected machine directly to the Digital Storage Network (either wire connector works) and instead of outputting to its inventory, it will output directly into the the Digital Storage Network.\n\nProgress is saved and resume when you leave/enter a planet.\n\nAffected Machines: Centrifuges, Apiaries, Blast Furnaces, Extractors, Sifters, and Water Generator\n\nFurther tweaks will be made to improve this.  The most obvious improvement will be a reduction in lag spikes.\n\nFuture Plans: Add growing trays and hydroponic trays.  Add new Apiaries and other Machines that do the work of many at once.  This will reduce the number of scripts that need to be loaded.",

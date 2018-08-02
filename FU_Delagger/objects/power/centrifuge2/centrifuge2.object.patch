@@ -35,8 +35,8 @@
 },
 {
   "op" : "add",
-  "path" : "/AvoidSlots",
-  "value" : [ 0,1,2,3 ]
+  "path" : "/FirstOutputSlot",
+  "value" : 4
 }
 ]
 

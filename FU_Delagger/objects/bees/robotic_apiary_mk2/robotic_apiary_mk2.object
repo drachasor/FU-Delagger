@@ -1,0 +1,75 @@
+{
+	"objectName" : "robotic_apiary_mk2",
+	"colonyTags" : [ "hive", "bees", "insects" ],
+	"rarity" : "Legendary",
+	"description" : "A robotic apiary with room for four hives.",
+	"shortdescription" : "^orange;Robotic Apiary Mark 2^reset;",
+	"race" : "generic",
+	"subtitle" : "Harvest honey!",
+	"category" : "crafting",
+	"price" : 1000,
+	"objectType" : "container",
+	"printable" : false,
+	"learnBlueprintsOnPickup" : ["robotic_apiary_mk3"],
+	"inventoryIcon" : "robotic_apiary_mk2_icon.png",
+
+	"orientations" : [
+	{
+		"dualImage" : "robotic_apiary_mk2.png:<frame>",
+		"imagePosition" : [0, 0],
+
+		"spaceScan" : 0.1,
+		"anchors" : [ "bottom" ],
+		"collision" : "platform"
+	}
+	],
+
+	"animation" : "/objects/bees/robotic_apiary_mk2/robotic_apiary_mk2.animation",
+	"animationParts" : {
+		"beacon" : "robotic_apiary_mk2.png",
+		"dslight" : "/objects/generic/delagger/connected2x4.png",
+		"hive1" : "/objects/bees/common/hiveStates.png",
+		"hive2" : "/objects/bees/common/hiveStates.png",
+		"hive3" : "/objects/bees/common/hiveStates.png",
+		"hive4" : "/objects/bees/common/hiveStates.png"
+	},
+	"animationPosition" : [0, 0],
+
+	"recipeGroup" : "beetrap",
+	"openSounds" : [ "/sfx/objects/florancrate_open.ogg" ],
+	"scripts" : [ "/objects/generic/robotic_apiary.lua" ],
+	"scriptDelta" : 140,
+	"slotCount" : 52,
+	"uiConfig" : "/interface/bees/robotic_apiary_mk2/robotic_apiary_mk2_GUI.config",
+	"frameCooldown" : 67,
+	"autoCloseCooldown" : 3600,
+
+	"spawnDelay" : 0.8,
+	"spawnBeeBrake" : 200,
+	"spawnItemBrake" : 125,
+	"spawnHoneyBrake" : 150,
+	"spawnDroneBrake" : 150,
+	"limitDroneCount" : false,
+
+	"beeStingChance" : 0.2,
+	"beeStingOffset" : [ 3, 3 ],
+
+	"beePowerScaling" :  1,
+	"hives" : [
+    { "name" : "hive1","bee1Slot" : 1, "bee2Slot" : 2, "frameSlots" : [9,10] },
+	{ "name" : "hive2","bee1Slot" : 3, "bee2Slot" : 4, "frameSlots" : [11,12] },
+	{ "name" : "hive3","bee1Slot" : 5, "bee2Slot" : 6, "frameSlots" : [13,14] },
+    { "name" : "hive4","bee1Slot" : 7, "bee2Slot" : 8, "frameSlots" : [15,16] }
+  	],
+	"FirstOutputSlot" : 16,
+
+	"inputNodes":[[0,0]],
+	"outputNodes":[[0,1]],
+	"notItemStorage":true,
+
+	"DigitalStorageNetworkPart" : {
+			"EndDevice" : "true"
+		}
+	
+
+}

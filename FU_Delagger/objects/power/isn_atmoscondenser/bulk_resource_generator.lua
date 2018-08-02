@@ -1,12 +1,12 @@
+require "/scripts/util.lua"
 require "/objects/generic/digitalstorage_transfers.lua"
 require "/DigitalScripts/DigitalStoragePeripheral.lua"
 require "/HLib/Classes/Other/ClockLimiter.lua"
 require "/HLib/Classes/Item/ItemsTable.lua"
 require "/HLib/Classes/Tasks/TaskManager.lua"
 require "/HLib/Classes/Tasks/Task.lua"
-require "/scripts/util.lua"
-require "/scripts/power.lua"
-require "isn_resource_generator.lua"
+require "/scripts/delagger_utils.lua"
+require "/objects/generic/bulk_base_machine.lua"
 
 -- You might notice there's no timer here.
 -- The time between outputs and power consumption is determined by
@@ -14,107 +14,102 @@ require "isn_resource_generator.lua"
 
 -- Added in the deltaTime variable as it's common in any lua code which
 -- interacts with Item Transference Device (transferUtil) code.
-local deltaTime	-- Making it local is faster than leaving it global.
 
-function init()
-    transferUtil.init()
-    object.setInteractive(true)
-    self.powerConsumption = config.getParameter("isn_requiredPower")
-    power.init()
-
-    self.maxWeight = {}
+function GetRecipes()
     self.outputMap = {}
-
-    initMap(world.type())
-end
-
-function initMap(worldtype)
+    self.worldtype = world.type()
+    if self.worldtype == 'unknown' then
+		self.worldtype = world.getProperty("ship.celestial_type") or worldtype
+	end
     -- Set up output here so it won't take up time later
     local outputConfig = config.getParameter("outputs")
-    local outputTable = outputConfig[worldtype] or outputConfig["default"]
+    local outputTable = outputConfig[self.worldtype] or outputConfig["default"]
     if type(outputTable) == "string" then
         outputTable = outputConfig[outputTable]
     end
     local weights = config.getParameter("namedWeights")
-    self.maxWeight[worldtype] = 0
-    self.outputMap[worldtype] = {}
+    self.outputMap[self.worldtype] = {}
     for _,table in ipairs(outputTable or {}) do
         local weight = weights[table.weight] or table.weight
-        self.maxWeight[worldtype] = self.maxWeight[worldtype] + weight
-        self.outputMap[worldtype][weight] = table.items
+        self.outputMap[self.worldtype][weight] = table.items
     end
 end
 
-function update(dt)
-    
-    power.update(dt)
-	
-	-- Notify ITD but no faster than once per second.
-	if not deltaTime or (deltaTime > 1) then
-		deltaTime = 0
-		transferUtil.loadSelfContainer()
-		deltaTime = deltaTime + dt
+function AdditionalProgressLoad()
+	--sb.logInfo("loading partial output")
+	for key,val in pairs(self.partialOutput) do
+		sb.logInfo(string.format("Adding index %s entry %s to table", tostring(key), tostring(val)))
 	end
+end
 
-	local worldtype = world.type()
-	if worldtype == 'unknown' then
-		worldtype = world.getProperty("ship.celestial_type") or worldtype
-	end
-	if not self.outputMap[worldtype] then
-		initMap(worldtype)
-	end
-	
-    local output = nil
-    local rarityroll = math.random(1, self.maxWeight[worldtype])
-
-    -- Goes through the list adding values to the range as it goes.
-    -- This keeps the chance ratios while allowing the list to be in any order.
-    local total = 0
-    for weight,table in pairs(self.outputMap[worldtype]) do
-        total = total + weight
-        if rarityroll <= total then
-            output = util.randomFromList(table)
-            break
+function AdditionalProgressLoadDefaults()
+    if not storage.partialOutput then
+        for weight,table in pairs(self.outputMap[self.worldtype]) do
+            storage.partialOutput[weight] = 0
         end
     end
+end
 
-    if output and clearSlotCheck(output) and power.consume(self.powerConsumption) then
-        animator.setAnimationState("machineState", "active")
-        world.containerAddItems(entity.id(), output)
-    else
-        animator.setAnimationState("machineState", "idle")
+function AdditionalInits()
+    self.bulkMult = 30 -- self.maxBulkMult
+end
+
+
+function getOutputs()
+
+    for weight,table in pairs(self.outputMap[self.worldtype]) do
+        self.partialOutput[weight] = (weight/100 * self.bulkMult) + self.partialOutput[weight]
+
+        if self.partialOutput[weight] > #table then
+            local amount
+            amount,self.partialOutput[weight] = math.modf(
+                self.partialOutput[weight] / #table
+            )
+            for _,it in table do
+                self.outputData:Add
+                (
+                    Item(
+                        {name = it,
+                        count = amount,
+                        parameters = {}},
+                        true
+                    )
+                )
+            end
+        elseif not weight == "common" and not weight == "uncommon" then
+            if self.partialOutput[weight] > 1 then
+                storage.partialOutput[weight] = storage.partialOutput[weight] - 1
+                self.outputData:Add
+                (
+                    Item(
+                        {name = util.randomFromList(table),
+                        count = 1,
+                        parameters = {}},
+                        true
+                    )
+                )
+            end
+        end
+
+        self.outputData:Add(
+      Item({name = self.outputItems[i].name, count = amount, parameters = {}}, true)
+    )
     end
+    storage.outputData = serialize_itemTable(self.outputData)
+    self.timer = self.bulkMult * 120
+
+	return true
 end
 
-function clearSlotCheck(checkname)
-  return world.containerItemsCanFit(entity.id(), checkname) > 0
+function CraftingAnimationOn()
+	animator.setAnimationState("machineState", "active")
 end
 
-local _outputTableToSelf = outputTableToSelf
-function outputTableToSelf()
-	_outputTableToSelf()
-	self.bulkMult = 1
-	self.timer = self.mintick 
+function CraftingAnimationStalled()
+	animator.setAnimationState("machineState", "idle")
 end
 
-local _transferTask = transferTask
-function transferTask()
-	_transferTask()
-	self.bulkMult = 1
-	self.timer = self.mintick
-end
 
-function DigitalNetworkPreUpdateControllers(count, mode)
-	if count == 1 then
-		self._tasks:RemoveTasks();
-		outputTableToSelf()
-		--sb.logInfo("ds prepostupdate")
-	end
-  end
-  
-function DigitalNetworkPostUpdateControllers(count, mode)
-	if count == 1 then
-		--sb.logInfo("ds postupdate")
-		script.setUpdateDelta(5);
-	end
+function CraftingAnimationOff()
+	animator.setAnimationState("machineState", "idle")
 end

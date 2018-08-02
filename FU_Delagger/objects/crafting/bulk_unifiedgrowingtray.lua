@@ -5,6 +5,8 @@ require "/HLib/Classes/Item/ItemsTable.lua"
 require "/HLib/Classes/Tasks/TaskManager.lua"
 require "/HLib/Classes/Tasks/Task.lua"
 require "/scripts/power.lua"
+require "/scripts/fu_storageutils.lua"
+require "/scripts/kheAA/transferUtil.lua"
 
 timer = 0
 

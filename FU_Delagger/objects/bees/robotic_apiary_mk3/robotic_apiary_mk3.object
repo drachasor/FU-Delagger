@@ -1,0 +1,83 @@
+{
+	"objectName" : "robotic_apiary_mk3",
+	"colonyTags" : [ "hive", "bees", "insects" ],
+	"rarity" : "Legendary",
+	"description" : "A robotic apiary with room for eight hives.",
+	"shortdescription" : "^orange;Robotic Apiary Mark 3^reset;",
+	"race" : "generic",
+	"subtitle" : "Harvest honey!",
+	"category" : "crafting",
+	"price" : 1000,
+	"objectType" : "container",
+	"printable" : false,
+
+	"inventoryIcon" : "robotic_apiary_mk3_icon.png",
+
+	"orientations" : [
+	{
+		"dualImage" : "robotic_apiary_mk3.png:<frame>",
+		"imagePosition" : [0, 0],
+
+		"spaceScan" : 0.1,
+		"anchors" : [ "bottom" ],
+		"collision" : "platform"
+	}
+	],
+
+	"animation" : "/objects/bees/robotic_apiary_mk3/robotic_apiary_mk3.animation",
+	"animationParts" : {
+		"beacon" : "robotic_apiary_mk3.png",
+		"dslight" : "/objects/generic/delagger/connected2x4.png",
+		"hive1" : "/objects/bees/common/hiveStates.png",
+		"hive2" : "/objects/bees/common/hiveStates.png",
+		"thirdHive" : "/objects/bees/common/hiveStates.png",
+		"fourthHive" : "/objects/bees/common/hiveStates.png",
+		"fifthHive" : "/objects/bees/common/hiveStates.png",
+		"sixthHive" : "/objects/bees/common/hiveStates.png",
+		"hive7" : "/objects/bees/common/hiveStates.png",
+		"hive8" : "/objects/bees/common/hiveStates.png"
+	},
+	"animationPosition" : [0, 0],
+
+	"recipeGroup" : "beetrap",
+	"openSounds" : [ "/sfx/objects/florancrate_open.ogg" ],
+	"scripts" : [ "/objects/generic/robotic_apiary.lua" ],
+	"scriptDelta" : 140,
+	"slotCount" : 68,
+	"uiConfig" : "/interface/bees/robotic_apiary_mk3/robotic_apiary_mk3_GUI.config",
+	"frameCooldown" : 67,
+	"autoCloseCooldown" : 3600,
+
+	"spawnDelay" : 0.8,
+	"spawnBeeBrake" : 200,
+	"spawnItemBrake" : 125,
+	"spawnHoneyBrake" : 150,
+	"spawnDroneBrake" : 150,
+	"limitDroneCount" : false,
+
+	"beeStingChance" : 0.2,
+	"beeStingOffset" : [ 7, 3 ],
+
+	"beePowerScaling" :  1,
+	"hives" : [
+    { "name" : "hive1","bee1Slot" : 1, "bee2Slot" : 2, "frameSlots" : [17,18] },
+	{ "name" : "hive2","bee1Slot" : 3, "bee2Slot" : 4, "frameSlots" : [19,20] },
+	{ "name" : "thirdHive","bee1Slot" : 5, "bee2Slot" : 6, "frameSlots" : [21,22] },
+    { "name" : "fourthHive","bee1Slot" : 7, "bee2Slot" : 8, "frameSlots" : [23,24] },
+    { "name" : "fifthHive","bee1Slot" : 9, "bee2Slot" : 10, "frameSlots" : [25,26] },
+	{ "name" : "sixthHive","bee1Slot" : 11, "bee2Slot" : 12, "frameSlots" : [27,28] },
+	{ "name" : "hive7","bee1Slot" : 13, "bee2Slot" : 14, "frameSlots" : [29,30] },
+    { "name" : "hive8","bee1Slot" : 15, "bee2Slot" : 16, "frameSlots" : [31,32] }
+  	],
+	"FirstOutputSlot" : 32,
+
+	"inputNodes":[[0,0]],
+	"outputNodes":[[0,1]],
+	"notItemStorage":true,
+
+	"DigitalStorageNetworkPart" : {
+			"EndDevice" : "true"
+		}
+	
+
+}

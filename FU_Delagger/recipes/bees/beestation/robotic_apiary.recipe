@@ -1,0 +1,16 @@
+{
+  "input" : [
+    { "item" : "normalalveary", "count" : 1 },
+    { "item" : "durasteelbar", "count" : 10 },
+    { "item" : "titaniumbar", "count" : 10 },
+    { "item" : "cpu", "count" : 1 },
+    { "item" : "sentrybotshieldbot", "count" : 2 },
+    { "item" : "siliconboard", "count" : 2 },
+    { "item" : "laserdiode", "count" : 4 }
+  ],
+  "output" : {
+    "item" : "robotic_apiary",
+    "count" : 1
+  },
+  "groups" : [ "mod", "beestation", "tools", "all", "functional" ]
+}
