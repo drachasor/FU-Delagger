@@ -7,7 +7,13 @@
   "name" : "FU Factory Delagger",
   "priority" : -9000,
   "steamContentId" : "1444477803",
+<<<<<<< HEAD
   "friendlyName" : "FU Factory Delagger",
   "link" : "steam://url/CommunityFilePage/1444477803",
   "includes" : ["FrackinUniverse", "HLib", "DigitalStorage"]
 }
+=======
+  "tags" : "Crafting and Building|Miscellaneous|Furniture and Objects|Food and Farming|Mechanics",
+  "version" : "0.5.3"
+}
+>>>>>>> master
