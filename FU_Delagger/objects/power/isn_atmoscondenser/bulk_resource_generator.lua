@@ -37,7 +37,7 @@ end
 function AdditionalProgressLoad()
 	--sb.logInfo("loading partial output")
 	for key,val in pairs(storage.partialOutput) do
-		sb.logInfo(string.format("Adding index %s entry %s to table", tostring(key), tostring(val)))
+		--sb.logInfo(string.format("Adding index %s entry %s to table", tostring(key), tostring(val)))
 	end
 end
 
@@ -73,7 +73,7 @@ function getOutputs()
                     )
                 end
             elseif weight ~= "common" and weight ~= "uncommon" then
-                sb.logInfo("Rare Item test")
+                --sb.logInfo("Rare Item test")
                 if storage.partialOutput[weight] >= 1 then
                     storage.partialOutput[weight] = storage.partialOutput[weight] - 1
                     local item = table[math.random(1,#table)]

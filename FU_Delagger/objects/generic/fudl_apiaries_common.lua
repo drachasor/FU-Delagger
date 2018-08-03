@@ -191,7 +191,7 @@ function reset()   ---When bees are not present, this sets a slightly increased 
 end
 
 
-function frame(frameSlots)
+function frame(hive)
 	--[[
 		modifiers.honey
 		modifiers.drone
@@ -202,22 +202,21 @@ function frame(frameSlots)
 	]]
 	local mods = { combs = {} }
 
-	for key, slot in ipairs(frameSlots) do
+	for key, slot in ipairs(hive.frameSlots) do
 		apiary_doFrame(mods, world.containerItemAt(entity.id(),slot - 1))
 	end
-	local modifiers = {}
-	modifiers.drone = mods.droneModifier or 0
-	modifiers.honey = mods.honeyModifier or 0
-	modifiers.item = mods.itemModifier or 0
-	modifiers.mutationIncrease = mods.mutationIncrease or 0
-	modifiers.antimite = mods.antimite
+	hive.modifiers.drone = mods.droneModifier or 0
+	hive.modifiers.honey = mods.honeyModifier or 0
+	hive.modifiers.item = mods.itemModifier or 0
+	hive.modifiers.mutationIncrease = mods.mutationIncrease or 0
+	hive.modifiers.antimite = mods.antimite
 
 	if mods.forceTime and mods.forceTime ~= 0 then
-		daytime = mods.forceTime > 0
+		hive.modifiers.daytime = mods.forceTime > 0
+		--sb.logInfo("Force Daytime is " .. tostring(hive.modifiers.daytime))
 	end
 
-	modifiers.combs = mods.combs
-	return modifiers
+	hive.modifiers.combs = mods.combs
 --[[
 	sb.logInfo ('apiary ' .. entity.id() .. ': drone ' .. self.droneModifier .. ', honey ' .. self.honeyModifier .. ', item ' .. self.itemModifier .. ', muta ' .. self.mutationIncrease)
 	for key, slot in ipairs(self.frameSlots) fo
@@ -596,7 +595,17 @@ function miteInfection(hive)
 end
 
 function daytimeCheck()
-	daytime = world.timeOfDay() < 0.45 or world.type() == 'playerstation' --we made day earlier
+	self.daytime = world.timeOfDay() < 0.45 or world.type() == 'playerstation' --we made day earlier
+end
+
+function getHiveTime(hive)
+	if hive.modifiers.daytime then
+		--sb.logInfo("Daytime Check: " .. tostring(hive.modifiers.daytime))
+		return hive.modifiers.daytime
+	else
+		--sb.logInfo("Daytime Check: " .. tostring(self.daytime))
+		return self.daytime
+	end
 end
 
 
@@ -614,7 +623,7 @@ end
 function hiveActivity(hive)
 	if hive.queen and hive.drone then
 		local when = self.config.spawnList[hive.queen.type].active or 'day'
-		local now = daytime and 'day' or 'night'
+		local now = getHiveTime(hive) and 'day' or 'night'
 		if hive.queen.type == hive.drone.type then
 			hive.active = self.beePower > 0 and 
 			(
@@ -664,13 +673,14 @@ function updateBeeProduction(dt)
 			mutationIncrease = 0,
 			antimite = 0,
 			combs = 0,
-			hivePower = 0
+			hivePower = 0,
+			daytime = nil
 		}
-		--object.say("Checking a Hive")
+		frame(hive)	--Checks to see if a frame in installed.
 		getEquippedBees(hive)
 		if hiveActivity(hive) then
 			--object.say("Hive Power: " .. hive.power)	
-			hive.modifiers = frame(hive.frameSlots)	--Checks to see if a frame in installed.
+			
 			deciding(hive)
 		
 			if hive.actions.doBees or hive.actions.doItems or hive.actions.doHoney or hive.actions.doDrones then
@@ -710,7 +720,7 @@ function update(dt)
 					self._tasks:AddTask(Task(coroutine.create(transferTask)));
 					script.setUpdateDelta(1);
 				else
-					sb.logInfo("No controller, outputting to self")
+					--sb.logInfo("No controller, outputting to self")
 					outputTableToSelf()
 				end
 			end
