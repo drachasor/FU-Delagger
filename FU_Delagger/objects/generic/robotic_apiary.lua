@@ -51,9 +51,6 @@ function setAnimationState()
 		animate = animate or hive.active
 		local state = hive.active and "active" or "resting"
 		if hive.activity then
-			if hive.name == "hive3" then
-				object.say("hive3! " .. state)
-			end
 			--sb.logInfo(hive.name .. " is " .. state)
 			animator.setAnimationState(hive.name,state)
 		else

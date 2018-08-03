@@ -89,7 +89,7 @@
 					}
 				}
 			},
-			"hive3" : {
+			"thirdHive" : {
 				"default" : "nohive",
 				"states" : {
 					"nohive" : {
@@ -109,7 +109,7 @@
 					}
 				}
 			},
-			"hive4" : {
+			"fourthHive" : {
 				"default" : "nohive",
 				"states" : {
 					"nohive" : {
@@ -245,7 +245,7 @@
 					}
 				}
 			},
-			"hive3" : {
+			"thirdHive" : {
 				"properties" : {
 					"centered" : false,
 					"zlevel" : 1,
@@ -254,7 +254,7 @@
 				},
 
 				"partStates" : {
-					"hive3" : {
+					"thirdHive" : {
 						"nohive" : {
 							"properties" : {
 								"image" : "<partImage>:nohive.<frame>"
@@ -273,7 +273,7 @@
 					}
 				}
 			},
-			"hive4" : {
+			"fourthHive" : {
 				"properties" : {
 					"centered" : false,
 					"zlevel" : 1,
@@ -281,7 +281,7 @@
 					"offset" : [10.25,1.75]
 				},
 				"partStates" : {
-					"hive4" : {
+					"fourthHive" : {
 						"nohive" : {
 							"properties" : {
 								"image" : "<partImage>:nohive.<frame>"

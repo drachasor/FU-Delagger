@@ -238,9 +238,9 @@ end
 
 function update(dt)
 	if not self.loadcomplete then
-		loadProgress()
 		SetPowered()
 		GetRecipes()
+		loadProgress()
 		self.loadcomplete = true
 	end
 

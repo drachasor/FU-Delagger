@@ -1,4 +1,3 @@
-require "/scripts/util.lua"
 require "/objects/generic/digitalstorage_transfers.lua"
 require "/DigitalScripts/DigitalStoragePeripheral.lua"
 require "/HLib/Classes/Other/ClockLimiter.lua"
@@ -16,6 +15,7 @@ require "/objects/generic/bulk_base_machine.lua"
 -- interacts with Item Transference Device (transferUtil) code.
 
 function GetRecipes()
+    self.weightMap = config.getParameter("namedWeights")
     self.outputMap = {}
     self.worldtype = world.type()
     if self.worldtype == 'unknown' then
@@ -27,78 +27,74 @@ function GetRecipes()
     if type(outputTable) == "string" then
         outputTable = outputConfig[outputTable]
     end
-    local weights = config.getParameter("namedWeights")
+    
     self.outputMap[self.worldtype] = {}
     for _,table in ipairs(outputTable or {}) do
-        local weight = weights[table.weight] or table.weight
-        self.outputMap[self.worldtype][weight] = table.items
+        self.outputMap[self.worldtype][table.weight] = table.items
     end
 end
 
 function AdditionalProgressLoad()
 	--sb.logInfo("loading partial output")
-	for key,val in pairs(self.partialOutput) do
+	for key,val in pairs(storage.partialOutput) do
 		sb.logInfo(string.format("Adding index %s entry %s to table", tostring(key), tostring(val)))
 	end
 end
 
 function AdditionalProgressLoadDefaults()
     if not storage.partialOutput then
-        for weight,table in pairs(self.outputMap[self.worldtype]) do
+        storage.partialOutput = {}
+        for weight,_ in pairs(self.weightMap) do
             storage.partialOutput[weight] = 0
         end
     end
 end
 
-function AdditionalInits()
-    self.bulkMult = 30 -- self.maxBulkMult
-end
-
-
 function getOutputs()
-
-    for weight,table in pairs(self.outputMap[self.worldtype]) do
-        self.partialOutput[weight] = (weight/100 * self.bulkMult) + self.partialOutput[weight]
-
-        if self.partialOutput[weight] > #table then
-            local amount
-            amount,self.partialOutput[weight] = math.modf(
-                self.partialOutput[weight] / #table
-            )
-            for _,it in table do
-                self.outputData:Add
-                (
-                    Item(
-                        {name = it,
-                        count = amount,
-                        parameters = {}},
-                        true
-                    )
+	GetPower(.1)
+	if self.dowork then
+        for weight,table in pairs(self.outputMap[self.worldtype]) do
+            local chance = self.weightMap[weight] / 100
+            storage.partialOutput[weight] = (chance * self.maxBulkMult) + storage.partialOutput[weight]
+            if storage.partialOutput[weight] >= #table then
+                local amount
+                amount,storage.partialOutput[weight] = math.modf(
+                    storage.partialOutput[weight] / #table
                 )
-            end
-        elseif not weight == "common" and not weight == "uncommon" then
-            if self.partialOutput[weight] > 1 then
-                storage.partialOutput[weight] = storage.partialOutput[weight] - 1
-                self.outputData:Add
-                (
-                    Item(
-                        {name = util.randomFromList(table),
-                        count = 1,
-                        parameters = {}},
-                        true
+                for _,it in pairs(table) do
+                    self.outputData:Add
+                    (
+                        Item(
+                            {name = it,
+                            count = amount,
+                            parameters = {}},
+                            true
+                        )
                     )
-                )
+                end
+            elseif weight ~= "common" and weight ~= "uncommon" then
+                sb.logInfo("Rare Item test")
+                if storage.partialOutput[weight] >= 1 then
+                    storage.partialOutput[weight] = storage.partialOutput[weight] - 1
+                    local item = table[math.random(1,#table)]
+                    self.outputData:Add
+                    (
+                        Item(
+                            {name = item,
+                            count = 1,
+                            parameters = {}},
+                            true
+                        )
+                    )
+                end
             end
         end
+        storage.outputData = serialize_itemTable(self.outputData)
+        self.timer = self.maxBulkMult * 2
 
-        self.outputData:Add(
-      Item({name = self.outputItems[i].name, count = amount, parameters = {}}, true)
-    )
+        return true
     end
-    storage.outputData = serialize_itemTable(self.outputData)
-    self.timer = self.bulkMult * 120
-
-	return true
+    return false
 end
 
 function CraftingAnimationOn()

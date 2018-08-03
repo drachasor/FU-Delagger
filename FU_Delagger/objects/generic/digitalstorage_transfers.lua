@@ -11,11 +11,8 @@ function storeItem(itemD, firstOutput, spawnLeftovers)
 			local stack = world.containerItemAt(entity.id(), i) -- get the stack on i		
 			if stack then -- not empty
 				if stack.name == itemD.name then
-					sb.logInfo(string.format("Merging item %s with total %i at %i",itemD.name,itemD.count,i))
+					--sb.logInfo(string.format("Merging item %s with total %i at %i",itemD.name,itemD.count,i))
 					itemD = world.containerPutItemsAt(entity.id(), itemD, i)
-					if itemD then
-						sb.logInfo(string.format("Merged item %s with total %i at %i",itemD.name,itemD.count,i))
-					end
 					--itemD = world.containerItemApply(entity.id(), itemD, i)
 				end
 			else

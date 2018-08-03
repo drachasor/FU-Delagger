@@ -30,8 +30,8 @@
 		"dslight" : "/objects/generic/delagger/connected2x4.png",
 		"hive1" : "/objects/bees/common/hiveStates.png",
 		"hive2" : "/objects/bees/common/hiveStates.png",
-		"hive3" : "/objects/bees/common/hiveStates.png",
-		"hive4" : "/objects/bees/common/hiveStates.png"
+		"thirdHive" : "/objects/bees/common/hiveStates.png",
+		"fourthHive" : "/objects/bees/common/hiveStates.png"
 	},
 	"animationPosition" : [0, 0],
 
@@ -58,8 +58,8 @@
 	"hives" : [
     { "name" : "hive1","bee1Slot" : 1, "bee2Slot" : 2, "frameSlots" : [9,10] },
 	{ "name" : "hive2","bee1Slot" : 3, "bee2Slot" : 4, "frameSlots" : [11,12] },
-	{ "name" : "hive3","bee1Slot" : 5, "bee2Slot" : 6, "frameSlots" : [13,14] },
-    { "name" : "hive4","bee1Slot" : 7, "bee2Slot" : 8, "frameSlots" : [15,16] }
+	{ "name" : "thirdHive","bee1Slot" : 5, "bee2Slot" : 6, "frameSlots" : [13,14] },
+    { "name" : "fourthHive","bee1Slot" : 7, "bee2Slot" : 8, "frameSlots" : [15,16] }
   	],
 	"FirstOutputSlot" : 16,
 
